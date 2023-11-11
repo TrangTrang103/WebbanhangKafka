@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="page_head(title, remove)" th:remove="${remove}">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>[[${title}]]</title>
+  <!-- base:css -->
+  <link rel="stylesheet" th:href="@{/vendors/typicons/typicons.css}">
+  <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" th:href="@{/css/vertical-layout-light/style.css}">
+  <link rel="stylesheet" th:href="@{/css/vertical-layout-light/alert.css}">
+  <!-- endinject -->
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+
+</head>
+<body>
+
+
+
+  <ul class="navbar-nav mr-lg-2" th:fragment="article(title,index)">
+    <li class="nav-item">
+      <div class="d-flex align-items-baseline">
+        <p class="mb-0">[[${title}]]</p>
+        <i class="typcn typcn-chevron-right"></i>
+        <p class="mb-0">[[${index}]]</p>
+      </div>
+    </li>
+  </ul>
+
+
+
+
+</body>
+</html>

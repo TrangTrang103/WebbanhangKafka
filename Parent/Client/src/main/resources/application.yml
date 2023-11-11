@@ -1,0 +1,31 @@
+server:
+  port: 85
+  servlet:
+    context-path: /Client
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: 127.0.0.1:9092
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+  datasource:
+    password: 12345
+    url: jdbc:mysql://localhost:3307/doanspringboot
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: false
+    server:
+      error:
+        path=/error: error.whitelabel.enabled=false
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+    
+
