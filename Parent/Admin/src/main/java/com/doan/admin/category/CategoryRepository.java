@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
 
-    @Query(value = "select * from doanspringboot.category", nativeQuery = true)
-    Page<Category> getAll(Pageable pageable);
-
     @Query(value = "select * from doanspringboot.category where doanspringboot.category.name like %?1% or doanspringboot.category.id like %?1%", nativeQuery = true)
     Page<Category> findByCategory_NameAndId(String inputSearch, Pageable pageable);
 //    @Query(value = "select * from doanspringboot.category where doanspringboot.category.id like %?1%", nativeQuery = true)

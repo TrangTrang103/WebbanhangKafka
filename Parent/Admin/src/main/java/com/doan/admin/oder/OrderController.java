@@ -23,10 +23,6 @@ public class OrderController {
     @Autowired
     private OrderItemServiceImp orderItemService;
 
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private OrderRepository repository;
 
     @Autowired
     HttpSession session;
@@ -34,7 +30,6 @@ public class OrderController {
     public String getOrder(Model model){
         Pageable pageable = PageRequest.of(0, 10);
         Page<Order> pageOrder = orderService.getAll(pageable);
-        List<Order> op = repository.findAll();
         model.addAttribute("pageOrder",pageOrder);
         return "order/order";
     }
@@ -50,7 +45,7 @@ public class OrderController {
     @PostMapping("/order/search")
     public String getProduct(@ModelAttribute("search-input") String search_input, Model model) {
         Pageable pageable = PageRequest.of(0, 10);
-        Page<Product> pageOrder = orderService.searchOrder(search_input, pageable);
+        Page<Order> pageOrder = orderService.searchOrder(search_input, pageable);
         model.addAttribute("pageOrder", pageOrder);
         model.addAttribute("search_dashboard", "search_dashboard");
         model.addAttribute("search_input", search_input);
@@ -62,7 +57,7 @@ public class OrderController {
     public String getProducts(Model model) {
         Pageable pageable = PageRequest.of(0, 10);
         String search_input = (String) session.getAttribute("search_input_order");
-        Page<Product> pageOrder = orderService.searchOrder(search_input, pageable);
+        Page<Order> pageOrder = orderService.searchOrder(search_input, pageable);
         model.addAttribute("pageOrder", pageOrder);
         model.addAttribute("search_input", search_input);
         model.addAttribute("search_dashboard", "search_dashboard");
@@ -74,7 +69,7 @@ public class OrderController {
     public String getProductSearch(@PathVariable int page, Model model) {
         Pageable pageable = PageRequest.of(page - 1, 10);
         String search_input = (String) session.getAttribute("search_input_order");
-        Page<Product> pageOrder = orderService.searchOrder(search_input, pageable);
+        Page<Order> pageOrder = orderService.searchOrder(search_input, pageable);
         model.addAttribute("pageOrder", pageOrder);
         model.addAttribute("search_input", search_input);
         model.addAttribute("search_dashboard", "search_dashboard");

@@ -36,8 +36,6 @@ public class ProductController {
     public String getProduct(Model model) {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Product> pageProduct = productService.getAllProduct(pageable);
-//        List<ProductImage> listImg = productImgRepository.findByProduct();
-//        String productSuccess = (String) session.getAttribute("addProductSuccess");
         List<Category> listCategories = categoryService.getAllCategory();
         List<Product> products = productService.getAllProduct();
         products.get(0).getProductImage().get(0);
@@ -46,11 +44,13 @@ public class ProductController {
 //        model.addAttribute("productSuccess",productSuccess);
         String addProduct = (String) session.getAttribute("addProduct");
         String editProduct = (String) session.getAttribute("editProduct");
+        String deleteProduct = (String) session.getAttribute("deleteProduct");
         model.addAttribute("addProduct", addProduct);
         model.addAttribute("editProduct", editProduct);
+        model.addAttribute("deleteProduct",deleteProduct);
         session.setAttribute("addProduct", null);
         session.setAttribute("editProduct", null);
-
+        session.setAttribute("deleteProduct", null);
         return "product/product";
     }
 
@@ -126,6 +126,7 @@ public class ProductController {
 
     @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable int id) {
+        session.setAttribute("deleteProduct", "deleteProductSuccess");
         productService.deleteProduct(id);
         return "redirect:/product";
     }

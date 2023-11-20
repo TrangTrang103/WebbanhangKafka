@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Integer> {
@@ -17,8 +16,8 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
     List<Order> findAllByCustomerId(Integer customerId);
 
     @Query(value = "select * from doanspringboot.order where doanspringboot.order.customer_id like %?1% or doanspringboot.order.id like %?1%", nativeQuery = true)
-    Page<Product> findByOrder_NameAndId(String inputSearch, Pageable pageable);
+    Page<Order> findByOrder_NameAndId(String inputSearch, Pageable pageable);
 
     @Query(value = "select * from doanspringboot.order where doanspringboot.order.id like %?1%", nativeQuery = true)
-    Order findOrderById(Integer id);
+    Order findOrderId(Integer id);
 }

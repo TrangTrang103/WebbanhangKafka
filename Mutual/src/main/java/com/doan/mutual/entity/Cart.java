@@ -29,7 +29,4 @@ public class Cart extends BaseEntity {
 	@ToString.Exclude
 	private Product product;
 
-	@OneToOne(mappedBy = "cart")
-	@PrimaryKeyJoinColumn
-	private Shipping shipping;
 }

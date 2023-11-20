@@ -2,6 +2,7 @@ package com.doan.order;
 
 
 import com.doan.cart.CartService;
+import com.doan.kafka.service.KafkaProducerService;
 import com.doan.mutual.entity.*;
 import com.doan.product.ProductService;
 import com.doan.security.CustomerUserDetails;
@@ -40,6 +41,10 @@ public class OrderController {
 	@Autowired
 	HttpSession session;
 
+	private final KafkaProducerService kafkaProducerService;
+	public OrderController(KafkaProducerService kafkaProducerService) {
+		this.kafkaProducerService = kafkaProducerService;
+	}
 	@GetMapping("checkout")
 	public String CheckOutView(Model model, @AuthenticationPrincipal CustomerUserDetails loggerUser) {
 //		User user = (User) session.getAttribute("acc");
@@ -149,6 +154,19 @@ public class OrderController {
 			List<Order> listOrder = orderService.getAllOrderByCustomerId(loggerUser.getCustomer().getId());
 			newOrder = listOrder.get(listOrder.size()-1);
 			newOrder.getId();
+			listCart.forEach(list -> {
+				List<Order> listOrder1 = orderService.getAllOrderByCustomerId(loggerUser.getCustomer().getId());
+				Product product = list.getProduct();
+				product.setQuantity(product.getQuantity() - list.getCount());
+				product.setSold(product.getSold() + list.getCount());
+				productService.saveProduct(product);
+				OrderItem newOrder_Item = new OrderItem();
+				newOrder_Item.setCount(list.getCount());
+				newOrder_Item.setOrder(listOrder1.get(listOrder1.size()-1));
+				newOrder_Item.setProduct(list.getProduct());
+				orderItemService.saveOrder_Item(newOrder_Item);
+				cartService.deleteById(list.getId());
+			});
 			for (Cart y : listCart) {
 				Product product = y.getProduct();
 				product.setQuantity(product.getQuantity() - y.getCount());
@@ -166,7 +184,14 @@ public class OrderController {
 			Shipping shipping = new Shipping();
 			session.setAttribute("order", newOrder);
 			Order order = newOrder;
-			Integer i = order.getId();
+			Integer orderId = order.getId();
+            try{
+				shipping.setStatus("pending");
+//				kafkaProducerService.sendShipping(orderId);
+
+			}catch (NullPointerException e){
+				e.printStackTrace();
+			}
 			return "redirect:/invoice";
 		}
 		return "order/checkout";

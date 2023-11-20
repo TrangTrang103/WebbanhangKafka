@@ -63,6 +63,17 @@
             </div>
           </label>
         </div>
+
+        <div th:if="${deleteProduct != null}">
+          <label>
+            <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+            <div class="alert red">
+              <span class="alertClose">X</span>
+              <span class="alertText">Xóa sản phẩm mới thành công
+                  <br class="clear"/></span>
+            </div>
+          </label>
+        </div>
 <!--        </div>-->
 
         <div class="row">
@@ -106,15 +117,15 @@
                     <td><span th:text="${p.sold}"></span> </td>
                     <td><span th:text="${p.category.name}"></span> </td>
                     <td>
-                      <div class="d-flex align-items-center example">
+                      <div class="d-flex align-items-center">
                         <button type="button" class="btn btn-dark btn-sm btn-icon-text mr-3" >
                          <i class="typcn typcn-document btn-icon-append"></i>
                         </button>
-                        <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3" id="deleteproduct">
-                          <a th:href="@{/product/delete/{id}(id=${p.id})}"> <i class="typcn typcn-edit btn-icon-append" style="color: white"></i></a>
+                        <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3 " >
+                          <a th:href="@{/product/edit/{id}(id=${p.id})}"> <i class="typcn typcn-edit btn-icon-append" style="color: white"></i></a>
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm btn-icon-text">
-                          <a th:href="@{/product/edit/{id}(id=${p.id})}"><i class="typcn typcn-delete-outline btn-icon-append" style="color: white"></i></a>
+                        <button type="button" class="btn btn-danger btn-sm btn-icon-text" id="deleteproduct">
+                          <a th:href="@{/product/delete/{id}(id=${p.id})}"><i class="typcn typcn-delete-outline btn-icon-append" style="color: white"></i></a>
                         </button>
                       </div>
                     </td>
@@ -223,7 +234,7 @@
 <!-- Custom js for this page-->
 <script th:src="@{/js/dashboard.js}"></script>
 <!-- End custom js for this page-->
-<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+<!--<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>-->
 
 </body>
 

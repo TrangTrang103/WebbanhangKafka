@@ -16,7 +16,7 @@ public class CategoryServiceImpl {
     private CategoryRepository categoryRepository;
 
     public Page<Category> getAll(Pageable page){
-        return categoryRepository.getAll(page);
+        return categoryRepository.findAll(page);
     }
     public List<Category> getAllCategory(){
         return (List<Category>) categoryRepository.findAll();

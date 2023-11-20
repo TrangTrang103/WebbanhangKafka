@@ -2,6 +2,7 @@ package com.doan.product;
 
 import com.doan.cart.CartService;
 import com.doan.category.CategoryService;
+import com.doan.kafka.service.KafkaProducerService;
 import com.doan.mutual.entity.Cart;
 import com.doan.mutual.entity.Category;
 import com.doan.mutual.entity.Product;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SessionAttributes("getClick")
-public class ProductControler {
+
+public class ProductController {
 
 	@Autowired
 	ProductService productService;
@@ -43,6 +45,7 @@ public class ProductControler {
 	@Autowired
 	HttpSession session;
 
+	private final KafkaProducerService kafkaProducerService;
 //	@Autowired
 //	CookieService cookie;
 
@@ -118,21 +121,17 @@ public class ProductControler {
 	}
 
 	@GetMapping("/productDetail/{id}")
-	public String ProductDetailId(@PathVariable int id, Model model,HttpServletRequest request,@CookieValue(value = "fav-col",
-			defaultValue = "unknown") List<String> favColour) {
-		List<String> msgs = (List<String>) request.getSession().getAttribute("MY_SESSION_MESSAGES");
-		if (msgs == null) {
-			msgs = new ArrayList<>();
-			request.getSession().setAttribute("MY_SESSION_MESSAGES", msgs);
-		}
-		favColour.add(String.valueOf(id));
-		msgs.add(String.valueOf(id));
-		request.getSession().setAttribute("MY_SESSION_MESSAGES", msgs);
+	public String ProductDetailId(@PathVariable int id, Model model,HttpServletRequest request) {
+//		List<String> msgs = (List<String>) request.getSession().getAttribute("MY_SESSION_MESSAGES");
+//		if (msgs == null) {
+//			msgs = new ArrayList<>();
+//			request.getSession().setAttribute("MY_SESSION_MESSAGES", msgs);
+//		}
+//		msgs.add(String.valueOf(id));
+//		request.getSession().setAttribute("MY_SESSION_MESSAGES", msgs);
 		Product product = productService.getProductById(id);
-
-
+		kafkaProducerService.sendClick(new clickDetailList(String.valueOf(id),"productDetail"));
 			if (product != null) {
-
 				List<Product> relatedProduct = productService.findTop4ProductByCategory_id(product.getCategory().getId());
 				model.addAttribute("relatedProduct", relatedProduct);
 				model.addAttribute(product);
@@ -165,7 +164,18 @@ public class ProductControler {
 			System.out.println(search_input);
 			Page<Product> listProduct = productRepository.findByProduct_NameContaining(search_input, pageable);
 			List<Product> listProductAll = productRepository.findByProduct_NameContaining(search_input);
-			System.out.println(listProduct);
+			StringBuffer search = new StringBuffer();
+			if (listProductAll.size() != 0){
+				search.append("[");
+				listProductAll.forEach(i ->
+				{
+					search.append(i.getId()+",");
+				});
+				search.deleteCharAt(search.lastIndexOf(","));
+				search.append("]");
+				kafkaProducerService.sendClick(new clickDetailList(String.valueOf(search),"searchdetail"));
+			}
+
 			int TotalPro = listProductAll.size();
 			model.addAttribute("TotalPro",TotalPro);
 			model.addAttribute("search_input", search_input);
@@ -187,10 +197,7 @@ public class ProductControler {
 		}
 	}
 
-
-	
-//	@GetMapping("blog-details")
-//	public String blogDetailsView(Model model) {
-//		return "blog-details";
-//	}
+	public ProductController(KafkaProducerService kafkaProducerService) {
+		this.kafkaProducerService = kafkaProducerService;
+	}
 }

@@ -1,27 +1,24 @@
 package com.doan.cart;
 
 
+import com.doan.kafka.service.KafkaProducerService;
 import com.doan.mutual.entity.Cart;
 import com.doan.mutual.entity.Customer;
 import com.doan.mutual.entity.Product;
-import com.doan.mutual.entity.Size;
+import com.doan.mutual.entity.clickDetailList;
 import com.doan.product.ProductService;
 import com.doan.security.CustomerUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -37,7 +34,10 @@ public class CartController {
 
 	@Autowired
 	HttpSession session;
-
+	private final KafkaProducerService kafkaProducerService;
+	public CartController(KafkaProducerService kafkaProducerService) {
+		this.kafkaProducerService = kafkaProducerService;
+	}
 	@GetMapping("/cart")
 	public String CartView(Model model,@AuthenticationPrincipal CustomerUserDetails loggerUser)  {
 		   if (loggerUser == null){
@@ -100,10 +100,12 @@ public class CartController {
 	@GetMapping("/addToCart/{id}")
 	public String AddToCart(@PathVariable int id, Model model, HttpServletRequest request, @AuthenticationPrincipal CustomerUserDetails loggerUser)  {
 		String referer = request.getHeader("Referer");
+
 			if (loggerUser == null){
 				session.setAttribute("AddToCartErr", "Vui lòng đăng nhập trước khi thực hiện thao tác");
 				return "redirect:" + referer;
 			}else {
+				kafkaProducerService.sendClick(new clickDetailList(String.valueOf(id),"cartDetail"));
 				Integer customerId = loggerUser.getCustomer().getId();
 				Customer customer = loggerUser.getCustomer();
 				List<Cart> listCart = cartService.GetAllCartByCustomerId(customerId);

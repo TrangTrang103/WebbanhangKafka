@@ -16,8 +16,6 @@ public class OrderItem extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
 	private Product product;
 	
 	@ManyToOne
@@ -25,4 +23,6 @@ public class OrderItem extends BaseEntity{
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private Order order;
+	@Column(name = "size",nullable = true)
+	private String size;
 }

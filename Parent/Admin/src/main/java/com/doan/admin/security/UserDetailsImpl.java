@@ -66,16 +66,10 @@ public class UserDetailsImpl implements UserDetails {
         return user.isEnabled();
     }
 
-    public String getFullname() {
-        return this.user.getFirstName() + " " + this.user.getLastName();
+    public String getFullName() {
+        return user.getFirstName() + " " + user.getLastName();
     }
 
-    public void setFirstName(String firstName) {
-        this.user.setFirstName(firstName);
-    }
-
-    public void setLastName(String lastName) {
-        this.user.setLastName(lastName);}
 
     public User getUser(){
         return user;

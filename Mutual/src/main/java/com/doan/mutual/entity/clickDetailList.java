@@ -14,8 +14,15 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "clickDetail")
+
 public class clickDetailList extends BaseEntity {
-  private Integer idProductDetail;
+  private String idProductDetail;
+
+  private String loai;
+
+  @Override
+  public String toString() {
+    return "{" + '"' + "idProductDetail"+'"'+":" + '"' + idProductDetail + '"'+", "
+            +'"'+"loai"+ '"'+":" + '"' + loai + '"'+"}";
+  }
 }

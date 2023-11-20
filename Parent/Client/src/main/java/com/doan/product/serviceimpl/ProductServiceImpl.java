@@ -58,13 +58,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findTop12ProductBestSellers() {
 		// TODO Auto-generated method stub
-		return productRepository.findTop12ProductBestSellers();
+		return productRepository.findTop12ByOrderByQuantityDesc();
 	}
 
 	@Override
 	public List<Product> findTop12ProductNewArrivals() {
 		// TODO Auto-generated method stub
-		return productRepository.findTop12ProductNewArrivals();
+		return productRepository.findTop12ByOrderByCreatedTimeDesc();
 	}
 
 	@Override

@@ -23,7 +23,7 @@ public class Category extends BaseEntity {
 
     @Column(name = "note",nullable = true)
     private String note;
-    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Product> product = new ArrayList<>();
 
 

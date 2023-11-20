@@ -40,45 +40,45 @@
 	</div>
 
 	<!-- Offcanvas Menu Begin -->
-	<div class="offcanvas-menu-overlay"></div>
-	<div class="offcanvas-menu-wrapper">
-		<div class="offcanvas__option">
-			<div class="offcanvas__links">
-				<th:block sec:authorize="!isAuthenticated()">
-					<a th:href="@{/login}">Sign in</a>
-				</th:block>
-				<th:block sec:authorize="isAuthenticated()">
-					<a sec:authentication="principal.fullName"
-					   style="color: white;"></a> <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
-					<input type="submit" value="Logout" />
-				</form><a href="#">FAQs</a>
-				</th:block>
-			</div>
-			<div class="offcanvas__top__hover">
-				<span>Usd <i class="arrow_carrot-down"></i></span>
-				<ul>
-					<li>USD</li>
-					<li>EUR</li>
-					<li>USD</li>
-				</ul>
-			</div>
-		</div>
-		<div class="offcanvas__nav__option">
-			<a href="#" class="search-switch"><img src="img/icon/search.png"
-												   alt=""></a> <a href="#"><img src="img/icon/heart.png" alt=""></a>
-			<a th:href="@{/cart}"><img src="img/icon/cart.png" alt="">
-				<!--            <span th:text="${session.countCart}"></span>-->
-			</a>
-		</div>
-		<div id="mobile-menu-wrap"></div>
-		<div class="offcanvas__text">
-			<p>Free shipping, 30-day return or refund guarantee.</p>
-		</div>
-	</div>
+<!--	<div class="offcanvas-menu-overlay"></div>-->
+<!--	<div class="offcanvas-menu-wrapper">-->
+<!--		<div class="offcanvas__option">-->
+<!--			<div class="offcanvas__links">-->
+<!--				<th:block sec:authorize="!isAuthenticated()">-->
+<!--					<a th:href="@{/login}">Sign in</a>-->
+<!--				</th:block>-->
+<!--				<th:block sec:authorize="isAuthenticated()">-->
+<!--					<a sec:authentication="principal.fullName"-->
+<!--					   style="color: white;"></a> <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">-->
+<!--					<input type="submit" value="Logout" />-->
+<!--				</form><a href="#">FAQs</a>-->
+<!--				</th:block>-->
+<!--			</div>-->
+<!--			<div class="offcanvas__top__hover">-->
+<!--				<span>Usd <i class="arrow_carrot-down"></i></span>-->
+<!--				<ul>-->
+<!--					<li>USD</li>-->
+<!--					<li>EUR</li>-->
+<!--					<li>USD</li>-->
+<!--				</ul>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="offcanvas__nav__option">-->
+<!--			<a href="#" class="search-switch"><img src="img/icon/search.png"-->
+<!--												   alt=""></a> <a href="#"><img src="img/icon/heart.png" alt=""></a>-->
+<!--			<a th:href="@{/cart}"><img src="img/icon/cart.png" alt="">-->
+<!--				&lt;!&ndash;            <span th:text="${session.countCart}"></span>&ndash;&gt;-->
+<!--			</a>-->
+<!--		</div>-->
+<!--		<div id="mobile-menu-wrap"></div>-->
+<!--		<div class="offcanvas__text">-->
+<!--			<p>Free shipping, 30-day return or refund guarantee.</p>-->
+<!--		</div>-->
+<!--	</div>-->
 	<!-- Offcanvas Menu End -->
 
 	<!-- Header Section Begin -->
-	<span th:replace="header :: header"></span>
+	<span  th:replace="header :: header"></span>
 	<!-- Header Section End -->
 
 	<!-- Shop Details Section Begin -->

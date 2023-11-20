@@ -23,5 +23,5 @@ public class Shipping extends BaseEntity{
     @OneToOne
     @MapsId
     @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private Order order;
 }

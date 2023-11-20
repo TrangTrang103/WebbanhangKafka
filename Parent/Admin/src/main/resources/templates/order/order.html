@@ -82,7 +82,7 @@
                                             <td><span th:text="${od.paymentMethod}" ></span> </td>
                                             <th:block th:each="item : ${od.orderItem}">
                                             <td>
-                                             <p>Tên sản phẩm :</p> <span th:text="${item.product.name}"></span>
+                                             <p>Tên sản phẩm :</p> <span th:text="${item.product.name}" style="word-break: break-all"></span>
                                              <p>Mã sản phẩm :</p> <span th:text="${item.product.code}"></span>
                                              <p>Số lượng :</p> <span th:text="${item.count}"></span>
                                             </td>
@@ -92,18 +92,12 @@
                                                 <p>Tên người dùng :</p> <span th:text="${od.customer.firstName} + ' ' + ${od.customer.lastName}"></span>
                                                 <p>Số điện thoại :</p> <span th:text="${od.customer.phoneNumber}"></span>
                                                 <p>Email :</p> <span th:text="${od.customer.Email}"></span>
-                                                <p>Địa chỉ :</p> <span th:text="${od.customer.addressLine1}"></span>
+                                                <p>Địa chỉ :</p> <span th:text="${od.customer.addressLine1}" style="word-break: break-all"></span>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <button type="button" class="btn btn-dark btn-sm btn-icon-text mr-3" >
-                                                        <i class="typcn typcn-document btn-icon-append"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3 example" >
-                                                        <a th:href="@{/category/edit/{id}(id=${od.id})}"> <i class="typcn typcn-edit btn-icon-append" style="color: white"></i></a>
-                                                    </button>
                                                     <button type="button" class="btn btn-danger btn-sm btn-icon-text" id="deletecategory">
-                                                        <a th:href="@{/category/delete/{id}(id=${od.id})}"><i class="typcn typcn-delete-outline btn-icon-append" style="color: white"></i></a>
+                                                        <a th:href="@{/order/delete/{id}(id=${od.id})}"><i class="typcn typcn-delete-outline btn-icon-append" style="color: white"></i></a>
                                                     </button>
                                                 </div>
                                             </td>
@@ -212,30 +206,30 @@
 <!-- Custom js for this page-->
 <script th:src="@{/js/dashboard.js}"></script>
 <!-- End custom js for this page-->
-<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+<!--<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>-->
 
-<script>
-    document.getElementById('deletecategory').onclick = function(){
-        swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: "No, cancel plx!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-            function(isConfirm){
-                if (isConfirm){
-                    swal("Deleted!", "Your imaginary file has been deleted!", "success");
-                } else {
-                    swal("Cancelled", "Your imaginary file is safe :)", "error");
-                }
-            });
-    };
-</script>
+<!--<script>-->
+<!--    document.getElementById('deletecategory').onclick = function(){-->
+<!--        swal({-->
+<!--                title: "Are you sure?",-->
+<!--                text: "You will not be able to recover this imaginary file!",-->
+<!--                type: "warning",-->
+<!--                showCancelButton: true,-->
+<!--                confirmButtonColor: '#DD6B55',-->
+<!--                confirmButtonText: 'Yes, delete it!',-->
+<!--                cancelButtonText: "No, cancel plx!",-->
+<!--                closeOnConfirm: false,-->
+<!--                closeOnCancel: false-->
+<!--            },-->
+<!--            function(isConfirm){-->
+<!--                if (isConfirm){-->
+<!--                    swal("Deleted!", "Your imaginary file has been deleted!", "success");-->
+<!--                } else {-->
+<!--                    swal("Cancelled", "Your imaginary file is safe :)", "error");-->
+<!--                }-->
+<!--            });-->
+<!--    };-->
+<!--</script>-->
 </body>
 
 </html>

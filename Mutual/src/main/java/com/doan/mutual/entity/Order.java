@@ -33,9 +33,13 @@ public class Order extends BaseEntity {
 	@OneToMany(mappedBy = "order")
 	private List<OrderItem> orderItem;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private Customer customer;
+
+	@OneToOne(mappedBy = "order")
+	@PrimaryKeyJoinColumn
+	private Shipping shipping;
 }

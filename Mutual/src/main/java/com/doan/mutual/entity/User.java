@@ -124,10 +124,6 @@ public class User extends BaseEntity{
         return "/user-photos/" + this.id + "/" + this.photos;
     }
 
-    @Transient
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
 
     @Transient
     public boolean hasRole(String roleName){

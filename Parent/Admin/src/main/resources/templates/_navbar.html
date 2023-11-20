@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" th:fragment="_navbar">
       <div class="navbar-brand-wrapper d-flex justify-content-center">
@@ -16,17 +17,22 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
               <img th:src="@{/images/faces/face5.jpg}" alt="profile"/>
-              <span class="nav-profile-name">Eugenia Mullins</span>
+              <th:block sec:authorize="isAuthenticated()">
+                <span class="nav-profile-name" sec:authentication="principal.fullName"></span>
+              </th:block>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="typcn typcn-cog-outline text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a class="dropdown-item" href="javascript: document.logoutForm.submit()">
                 <i class="typcn typcn-eject text-primary"></i>
                 Logout
               </a>
+              <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Sign Out"/>
+              </form>
             </div>
           </li>
           <li class="nav-item nav-user-status dropdown">

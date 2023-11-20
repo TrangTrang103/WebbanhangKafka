@@ -66,14 +66,14 @@
                                 </div>
                             </div>
                         </div>
-                        <th:block th:each="odItem : ${orderItems}">
                         <table class="table table-borderless">
+                        <th:block th:each="odItem : ${orderItems}">
                             <tbody>
                             <tr>
                                 <td>
                                     <div class="d-flex mb-2">
                                         <div class="flex-shrink-0">
-                                            <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt width="35" class="img-fluid">
+                                            <img th:src="${odItem.getProduct().getProductImage().get(0)}" alt width="35" class="img-fluid">
                                         </div>
                                         <div class="flex-lg-grow-1 ms-3">
                                             <h6 class="small mb-0"><a href="#" class="text-reset"><span th:text="${odItem.getProduct().getName()}"></span></a></h6>
@@ -85,6 +85,7 @@
                                 <td class="text-end"><span th:text="${odItem.getProduct().getImportPrice().longValue()}"></span></td>
                             </tr>
                             </tbody>
+                        </th:block>
                             <tfoot>
                             <tr>
                                 <td colspan="2">Subtotal</td>
@@ -104,7 +105,6 @@
                             </tr>
                             </tfoot>
                         </table>
-                        </th:block>
                     </div>
                 </div>
 

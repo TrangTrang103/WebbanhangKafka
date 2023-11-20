@@ -18,21 +18,18 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	
 	@Query(value="select * from product p where p.name like %?1%",nativeQuery = true)
 	List<Product> findByProduct_NameContaining(String name);
-	
-	@Query(value="Select * From product p ORDER BY p.quantity DESC LIMIT 12;",nativeQuery = true)
-	List<Product> findTop12ProductBestSellers();
-	
-	@Query(value="Select * From product p ORDER BY p.created_time DESC LIMIT 12;",nativeQuery = true)
-	List<Product> findTop12ProductNewArrivals();
-	
+
+	List<Product> findTop12ByOrderByQuantityDesc();
+
+	List<Product> findTop12ByOrderByCreatedTimeDesc();
 	Page<Product> findAllByCategory_id(int id, Pageable pageable);
 	
 	Product findById(int id);
 	
-	@Query(value="select * from `fashionstore`.product where `fashionstore`.product.name like %?1% and `fashionstore`.product.category_id= ?2",nativeQuery = true)
+	@Query(value="select * from doanspringboot.product where doanspringboot.product.name like %?1% and doanspringboot.product.category_id= ?2",nativeQuery = true)
 	Page<Product> findByProduct_NameAndCategory_idContaining(String name, int category_id, Pageable pageable);
 	
-	@Query(value="select * from `fashionstore`.product where `fashionstore`.product.name like %?1%",nativeQuery = true)
+	@Query(value="select * from doanspringboot.product where doanspringboot.product.name like %?1%",nativeQuery = true)
 	Page<Product> findByProduct_NameContaining(String name, Pageable pageable);
 	
 	@Query(value="select * from product p where p.category_id = ?1 ORDER BY p.sold DESC LIMIT 4;",nativeQuery = true)
