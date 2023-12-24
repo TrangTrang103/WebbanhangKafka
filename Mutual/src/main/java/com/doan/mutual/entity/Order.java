@@ -30,16 +30,14 @@ public class Order extends BaseEntity {
 	@Column(name = "note", columnDefinition = "nvarchar(1111)")
 	private String note;
 	
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItem> orderItem;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "customer_id")
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
 	private Customer customer;
 
-	@OneToOne(mappedBy = "order")
+	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	@PrimaryKeyJoinColumn
 	private Shipping shipping;
 }

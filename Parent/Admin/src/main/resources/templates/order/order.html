@@ -23,7 +23,6 @@
                             <div class="input-group-prepend">
                                 <button type="submit" id="search" class="input-group-text">
                                     <i class="typcn typcn-zoom"></i>
-
                                 </button>
                             </div>
                         </div>
@@ -95,7 +94,11 @@
                                                 <p>Địa chỉ :</p> <span th:text="${od.customer.addressLine1}" style="word-break: break-all"></span>
                                             </td>
                                             <td>
+
                                                 <div class="d-flex align-items-center">
+                                                    <button type="button" class="btn btn-success btn-sm btn-icon-text" >
+                                                        <a th:href="@{/getorder/{id}(id=${od.id})}"><i class="typcn typcn-document btn-icon-append"></i></a>
+                                                    </button>
                                                     <button type="button" class="btn btn-danger btn-sm btn-icon-text" id="deletecategory">
                                                         <a th:href="@{/order/delete/{id}(id=${od.id})}"><i class="typcn typcn-delete-outline btn-icon-append" style="color: white"></i></a>
                                                     </button>

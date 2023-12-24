@@ -2,12 +2,11 @@ package com.doan.product;
 
 import com.doan.cart.CartService;
 import com.doan.category.CategoryService;
+import com.doan.customer.CustomerService;
 import com.doan.kafka.service.KafkaProducerService;
-import com.doan.mutual.entity.Cart;
-import com.doan.mutual.entity.Category;
-import com.doan.mutual.entity.Product;
-import com.doan.mutual.entity.clickDetailList;
+import com.doan.mutual.entity.*;
 import com.doan.security.CustomerUserDetails;
+import com.doan.security.oauth.CustomerOAuth2User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,6 +42,8 @@ public class ProductController {
 	CartService cartService;
 
 	@Autowired
+	CustomerService customerService;
+	@Autowired
 	HttpSession session;
 
 	private final KafkaProducerService kafkaProducerService;
@@ -50,7 +51,7 @@ public class ProductController {
 //	CookieService cookie;
 
 	@GetMapping(value = {"/","/home"})
-	public String listStudents(Model model, @AuthenticationPrincipal CustomerUserDetails loggerUser) {
+	public String listStudents(Model model, @AuthenticationPrincipal CustomerUserDetails loggerUser, @AuthenticationPrincipal CustomerOAuth2User customerOAuth2User) {
 		List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
 //		Cookie user_name = cookie.read("user_name");
 //		Cookie remember = cookie.read("remember");
@@ -68,11 +69,17 @@ public class ProductController {
 //			List<Cart> listCart = cartService.GetAllCartByUser_id(acc.getId());
 //			session.setAttribute("countCart", listCart.size());
 //		}
+		List<Cart> listCart ;
 		if(loggerUser!=null) {
-			List<Cart> listCart = cartService.GetAllCartByCustomerId(loggerUser.getCustomer().getId());
+			 listCart = cartService.GetAllCartByCustomerId(loggerUser.getCustomer().getId());
 			session.setAttribute("countCart", listCart.size());
-			}
-		if (loggerUser==null)
+		} else if (customerOAuth2User != null) {
+			Customer customer = customerService.getCustomerByEmail(customerOAuth2User.getEmail());
+			session.setAttribute("CustomerId",customer.getId());
+			listCart = cartService.GetAllCartByCustomerId(customer.getId());
+			session.setAttribute("countCart", listCart.size());
+		}
+		if (loggerUser==null && customerOAuth2User == null)
 			session.setAttribute("countCart", "0");
 		model.addAttribute("error_momo", error_momo);
 		model.addAttribute("NoSignIn", NoSignIn);

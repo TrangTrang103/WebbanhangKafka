@@ -5,7 +5,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" th:fragment="sidebar">
   <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" th:href="@{/index}">
+      <a class="nav-link" th:href="@{/dashboard}">
         <i class="typcn typcn-device-desktop menu-icon"></i>
         <span class="menu-title">Dashboard</span>
         <div class="badge badge-danger">new</div>
@@ -19,7 +19,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" th:href="@{/product}">
+      <a class="nav-link" th:href="@{/product/2}">
         <i class="typcn typcn-film menu-icon"></i>
         <span class="menu-title">Sản phẩm</span>
         <i class="menu-arrow"></i>
@@ -40,9 +40,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+      <a class="nav-link" data-toggle="collapse"  th:href="@{/user}" aria-expanded="false" aria-controls="auth">
         <i class="typcn typcn-user-add-outline menu-icon"></i>
-        <span class="menu-title">User Pages</span>
+        <span class="menu-title">Nhân viên</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="auth">

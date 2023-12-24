@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl {
 
@@ -22,5 +24,13 @@ public class OrderServiceImpl {
 
     public Order getOrderById(Integer id){
        return orderRepository.findOrderId(id);
+    }
+
+    public List<Object[]> getOrderInMonth(Integer month){
+        return orderRepository.getOrderInMonth(month);
+    }
+
+    public List<Object[]> getCountOrderInMonth(Integer month){
+       return orderRepository.getCountOrderInMonth(month);
     }
 }

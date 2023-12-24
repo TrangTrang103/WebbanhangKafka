@@ -226,6 +226,7 @@
 <!-- End plugin js for this page-->
 <!-- inject:js -->
 <script th:src="@{/js/off-canvas.js}"></script>
+<script th:src="@{/js/chart.js}"></script>
 <script th:src="@{/js/hoverable-collapse.js}"></script>
 <script th:src="@{/js/template.js}"></script>
 <script th:src="@{/js/settings.js}"></script>
@@ -235,7 +236,9 @@
 <script th:src="@{/js/dashboard.js}"></script>
 <!-- End custom js for this page-->
 <!--<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>-->
-
+<script th:inline= "javascript" >
+  var transaction = [[${transaction}]]
+</script>
 </body>
 
 </html>

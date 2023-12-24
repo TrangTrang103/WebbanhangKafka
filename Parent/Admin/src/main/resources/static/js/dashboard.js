@@ -1,5 +1,4 @@
-l,,,,,,.//////////
-// (function($) {
+(function($) {
   'use strict';
   $(function() {
     // Remove pro banner on close
@@ -536,14 +535,14 @@ l,,,,,,.//////////
           arc: {
               borderWidth: 4
           }
-        },      
+        },
         legend: {
           display: false
         },
         tooltips: {
           enabled: true
         },
-        legendCallback: function(chart) { 
+        legendCallback: function(chart) {
           var text = [];
           text.push('<div class="d-flex align-items-center mb-3">');
             text.push('<div class="mr-2" style="width: 10px; height: 10px; border-radius: 50%;  background: ' + chart.data.datasets[0]. backgroundColor[0] + ' "></div>');
@@ -565,17 +564,17 @@ l,,,,,,.//////////
           var width = chart.chart.width,
               height = chart.chart.height,
               ctx = chart.chart.ctx;
-      
+
           ctx.restore();
           var fontSize = .96;
           ctx.font = "600 " + fontSize + "em sans-serif";
           ctx.textBaseline = "middle";
           ctx.fillStyle = "#fff";
-      
+
           var text = "70%",
               textX = Math.round((width - ctx.measureText(text).width) / 2),
               textY = height / 2;
-      
+
           ctx.fillText(text, textX, textY);
           ctx.save();
         }
@@ -830,7 +829,7 @@ l,,,,,,.//////////
               '#a43cda'
             ],
           }],
-      
+
           // These labels appear in the legend and in the tooltips when hovering different arcs
           labels: [
             'Gross Sales',
@@ -847,7 +846,7 @@ l,,,,,,.//////////
           legend: {
             display: false
           },
-          legendCallback: function(chart) { 
+          legendCallback: function(chart) {
             var text = [];
             text.push('<ul class="legend'+ chart.id +'">');
             for (var i = 0; i < chart.data.datasets[0].data.length; i++) {

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/sign/fonts/material-icon/css/material-design-iconic-font.min.css}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/sign/css/style.css}">
+</head>
+<body>
+
+<div class="main">
+
+    <!-- Sing in  Form -->
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content" th:if="${forgot==null}">
+                <div class="signin-image">
+                    <figure><img th:src="@{/sign/images/signin-image.jpg}" alt="sing up image"></figure>
+                    <a th:href="@{/register}" class="signup-image-link">Đăng kí tài khoản</a>
+                </div>
+                <div class="signin-form">
+                    <h2 class="form-title" style="font-family: Roboto">Đăng nhập</h2>
+                    <form th:action="@{/login}" method="POST" class="register-form" id="login-form" >
+                        <div th:if="${param.error}" class="text-center">
+                            <p class="text-danger">Sai mật khẩu hoặc tài khoản</p>
+                        </div>
+                        <div th:if="${param.logout}" class="text-center">
+
+                            <p class="text-warning">You have been logged out.</p>
+                        </div>
+                        <div th:if="${register}" class="text-center">
+                            <p class="text-warning">Đăng kí tài khoản thành công</p>
+                        </div>
+                        <div th:if="${resetpass}" class="text-center">
+                            <p class="text-warning">Đổi mật khẩu thành công</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="email" name="email" id="email" placeholder="Email"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Mật khẩu"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span><a th:href="@{forgot}">Forgot Password</a></label>
+                        </div>
+                        <div class="form-group form-button">
+                            <button type="submit" name="signin" id="signin" class="form-submit" value="Log in">Đăng nhập</button>
+                        </div>
+                    </form>
+                    <div class="social-login">
+                        <span class="social-label">Or login with</span>
+                        <ul class="socials">
+                            <li><a th:href="@{/oauth2/authorization/google}"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                            <li><a th:href="@{/oauth2/authorization/google}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="signin-content" th:if="${forgot!=null}">
+                <div class="signin-image">
+                    <figure><img th:src="@{/sign/images/signin-image.jpg}" alt="sing up image"></figure>
+                </div>
+                <div class="signin-form">
+                    <h2 class="form-title" style="font-family: Roboto">Quên Mật Khẩu</h2>
+
+
+                    <form th:if="${sendcode==null && changepass == null}" th:action="@{/forgot}" method="POST" class="register-form" id="login-form" >
+                        <div class="form-group">
+                            <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="email" name="login-name" id="forgotemail" placeholder="Email"/>
+                        </div>
+                        <div th:if="${error_forgot != null}">
+                            <p style="color: red;" th:text="${error_forgot}"></p>
+                        </div>
+                        <div class="form-group form-button">
+                            <button type="submit" name="signin" id="signin" class="form-submit" value="Log in">Kiểm tra tài khoản</button>
+                        </div>
+                    </form>
+
+
+
+                    <form th:if="${sendcode!=null && changepass == null}" th:action="@{/code}" method="POST" class="register-form" id="login-form" >
+                        <div class="form-group">
+                            <label for="code"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="number" name="code_input"  placeholder="Code"/>
+                        </div>
+                        <div th:if="${error_code != null}">
+                            <p style="color: red;" th:text="${error_code}"></p>
+                        </div>
+
+                        <div class="form-group form-button">
+                            <button type="submit" name="signin" id="signin" class="form-submit" value="Log in">Kiểm tra tài khoản</button>
+                        </div>
+                    </form>
+
+                    <form th:if="${changepass != null}" th:action="@{/newpass}" method="POST" class="register-form" id="login-form" >
+                        <div class="form-group">
+                            <label for="code"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="password" name="new_pass"  placeholder="Mật khẩu mới"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="code"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input th:value="${login_name}" type="password" name="confirm_new_pass"  placeholder="Nhập lại mật khẩu"/>
+                        </div>
+                        <div th:if="${error_newpass != null}">
+                            <p style="color: red;" th:text="${error_newpass}"></p>
+                        </div>
+
+                        <div class="form-group form-button">
+                            <button type="submit" name="signin" id="signin" class="form-submit" value="Log in">Đổi Mật Khẩu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- JS -->
+<script th:src="@{/sign/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/sign/js/main.js}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

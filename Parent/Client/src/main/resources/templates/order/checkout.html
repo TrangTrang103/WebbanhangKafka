@@ -8,7 +8,7 @@
   <meta name="keywords" content="Male_Fashion, unica, creative, html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Male-Fashion</title>
+  <title>FOX Fashion</title>
   <link rel="icon" href="/img/logo-3.png">
   <!-- Google Font -->
   <link
@@ -109,7 +109,7 @@
                 Full Name<span>*</span>
               </p>
               <input name="fullname" type="text"
-                     th:value="${loggerUser.getFullName()}">
+                     th:value="${customer.getFullName()}">
             </div>
             <div class="checkout__input">
               <p>
@@ -122,7 +122,7 @@
                 Address<span>*</span>
               </p>
               <input name="address" type="text" placeholder="Address"
-                     class="checkout__input__add">
+                     class="checkout__input__add" required>
             </div>
             <div class="row">
               <div class="col-lg-6">
@@ -131,7 +131,7 @@
                     Phone<span>*</span>
                   </p>
                   <input name="phone" type="text"
-                         th:value="${loggerUser.getCustomer().phoneNumber}">
+                         th:value="${customer.getPhoneNumber()}" required>
                 </div>
               </div>
               <div class="col-lg-6">
@@ -140,7 +140,7 @@
                     Email<span>*</span>
                   </p>
                   <input name="email" type="text"
-                         th:value="${loggerUser.getCustomer().email}">
+                         th:value="${customer.getEmail()}" required>
                 </div>
               </div>
             </div>
@@ -156,7 +156,7 @@
             <div class="checkout__order">
               <h4 class="order__title">Your order</h4>
               <div class="checkout__order__products">
-                Product <span>Total</span>
+                Product<span>Size</span> <span>Total</span>
               </div>
               <ul class="checkout__total__products">
                 <th:block th:if="${yStat.index < 10}" th:each="y : ${listCart}">

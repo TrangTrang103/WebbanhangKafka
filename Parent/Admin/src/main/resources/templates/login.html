@@ -155,8 +155,12 @@
 
     <button>Log In</button>
     <div class="social">
-        <div class="go"><i class="fab fa-google"></i>  Google</div>
-        <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+        <div class="go">
+            <a th:href="@{/oauth2/authorization/google}">
+                <i class="fab fa-google"></i>  Google
+            </a>
+        </div>
+        <a class="def-btn btn-fb" th:href="@{/oauth2/authorization/google}">Login with your facebook</a>
     </div>
 </form>
 </body>

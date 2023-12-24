@@ -1,6 +1,7 @@
 package com.doan.admin.product;
 
 import com.doan.admin.category.CategoryServiceImpl;
+import com.doan.admin.clickcart.ClickCartServiceImpl;
 import com.doan.admin.security.UserDetailsImpl;
 import com.doan.mutual.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class ProductController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
+    @Autowired
+    private ClickCartServiceImpl clickCartService;
     @Autowired
     private ProductImgRepository productImgRepository;
     @Autowired
@@ -165,5 +169,12 @@ public class ProductController {
         productService.deleteProductImage(id);
         return "redirect:" + referer;
 
+    }
+
+    @GetMapping("/product/clickCart")
+    public String ClickCart() throws SQLException{
+       List<Object[]> clickCarts =  clickCartService.getTop10Products();
+       clickCarts.get(0);
+        return "product/product_edit";
     }
 }

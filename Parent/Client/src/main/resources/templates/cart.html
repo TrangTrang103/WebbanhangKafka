@@ -103,7 +103,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="shopping-cart spad">
   <div class="container">
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form th:action="@{/updateCart}" method="post">
       <div class="row">
         <div class="col-lg-8">
           <div class="shopping__cart__table">
@@ -142,11 +142,11 @@
                   <td class="quantity__item">
                     <div class="quantity">
 
-                      <select class="form-control" id="exampleSelectGender" name="category">
-                        <option th:value="${y.getProduct().getSizes().get(0).nameSize}" label="Áo-Quần"
-                                th:text="${y.getProduct().getSizes().get(0).nameSize}"></option>
+                      <select class="form-control" id="exampleSelectGender" th:name="'size'+${yStat.index}">
+                        <option th:value="${y.size}" label="Áo-Quần"
+                                th:text="${y.size}"></option>
                         <th:block th:each="s : ${y.getProduct().getSizes()}">
-                          <option th:value="${s.nameSize}" th:if="${sStat.index >0}" th:text="${s.nameSize}"></option>
+                          <option th:value="${s.nameSize}" th:if="${sStat.index >-1 && y.size != s.nameSize}" th:text="${s.nameSize}"></option>
                         </th:block>
                       </select>
 
@@ -171,7 +171,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="continue__btn update__btn">
-                <button type="submit" formaction="/Client/updateCart">
+                <button type="submit">
                   <i class="fa fa-spinner"></i> Update cart
                 </button>
               </div>

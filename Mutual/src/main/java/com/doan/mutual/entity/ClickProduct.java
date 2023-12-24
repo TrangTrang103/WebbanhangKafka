@@ -18,4 +18,7 @@ import javax.persistence.Table;
 public class ClickProduct extends BaseEntity {
     @Column(name = "idProduct")
     private String idProduct;
+
+    @Column(name = "create_time")
+    private String createTime;
 }

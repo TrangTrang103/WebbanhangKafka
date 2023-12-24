@@ -137,7 +137,7 @@
   <div class="shape"></div>
   <div class="shape"></div>
 </div>
-<form th:action="@{/login}" method="post">
+<form th:action="@{/login}" method="post" >
   <h3>Login Here</h3>
   <div th:if="${param.error}" class="text-center">
     <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
@@ -145,7 +145,7 @@
   <div th:if="${param.logout}" class="text-center">
     <p class="text-warning">You have been logged out.</p>
   </div>
-  <div th:if="${register}" class="text-center">
+  <div th:if="${param.register}" class="text-center">
     <p class="text-warning">Đăng kí tài khoản thành công</p>
   </div>
   <label for="email">Username</label>
@@ -154,9 +154,14 @@
   <label for="password">Password</label>
   <input type="password" placeholder="Password" id="password" name="password">
   <button>Log In</button>
-  <p class="text-danger" style="color: white; margin-top: 20px">Don't have an acount?  <a href=""> SignUp </a></p>
+  <p class="text-danger" style="color: white; margin-top: 20px">Don't have an acount?  <a th:href="@{/register}"> SignUp </a></p>
   <div class="social">
-    <div class="go"><i class="fab fa-google"></i>  Google</div>
+    <div class="go">
+      <a th:href="@{/oauth2/authorization/google}">
+        <i class="fab fa-google"></i>  Google
+      </a>
+    </div>
+    <a class="def-btn btn-fb" th:href="@{/oauth2/authorization/google}">Login with your facebook</a>
   </div>
 </form>
 </body>

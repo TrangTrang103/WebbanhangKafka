@@ -13,6 +13,17 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
 @EnableScheduling
 @EnableAsync
 @Service
@@ -62,10 +73,14 @@ public class KafkaConsumerService {
 //            clickDetailList detail = gson.fromJson(message, clickDetailList.class);
 //           detail.getLoai();
 //           detail.getIdProductDetail();
+            Format formatter = new SimpleDateFormat("HH:mm:ss");
+
+            String currentTime = formatter.format(new Date());
+
             if (click.getLoai().equals("productDetail")){
-                clickProduct.save(new ClickProduct(click.getIdProductDetail()));
+                clickProduct.save(new ClickProduct(click.getIdProductDetail(), currentTime));
             }else if(click.getLoai().equals("cartDetail")){
-                clickCart.save(new ClickCart(click.getIdProductDetail()));
+                clickCart.save(new ClickCart(click.getIdProductDetail(), currentTime));
             }else{
                 clickSearch.save(new ClickSearch(click.getIdProductDetail()));
             }

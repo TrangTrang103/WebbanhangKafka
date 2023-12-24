@@ -19,14 +19,10 @@ public class Cart extends BaseEntity {
 	private String size;
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
 	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
 	private Product product;
 
 }

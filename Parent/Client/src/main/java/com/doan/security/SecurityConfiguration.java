@@ -1,5 +1,7 @@
 package com.doan.security;
 
+import com.doan.security.oauth.CustomerOAuth2UserService;
+import com.doan.security.oauth.OAuth2LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired private CustomerOAuth2UserService oAuth2UserService;
+    @Autowired private OAuth2LoginSuccessHandler oauth2LoginHandler;
     @Autowired private DatabaseLoginSuccessHandler databaseLoginHandler;
 
     @Bean
@@ -40,6 +44,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .successHandler(databaseLoginHandler)
                 .permitAll()
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(oAuth2UserService)
+                .and()
+                .successHandler(oauth2LoginHandler)
                 .and()
                 .logout()
                 .logoutUrl("/logout")

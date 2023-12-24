@@ -22,7 +22,7 @@ public class Product extends BaseEntity{
     @Column(name = "description", nullable = true)
     private String description;
 
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, orphanRemoval = true)
    private List<ProductImage> productImage = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -32,7 +32,7 @@ public class Product extends BaseEntity{
     )
     private List<Size> sizes = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 

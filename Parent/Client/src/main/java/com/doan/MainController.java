@@ -26,14 +26,15 @@ public class MainController {
             String register = (String) session.getAttribute("register");
             model.addAttribute("register",register);
             session.setAttribute("register", null);
-            return "sign-in";
+            return "login";
         }
 
         return "redirect:/home";
     }
-}
-//    @GetMapping("/login")
+//    @GetMapping("/lo")
 //    public String LoginPage() {
-//      return "sign-in";
+//        return "login";
 //    }
-//}
+}
+
+

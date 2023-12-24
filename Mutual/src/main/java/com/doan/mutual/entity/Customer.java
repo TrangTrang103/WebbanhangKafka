@@ -53,4 +53,7 @@ public class Customer extends BaseEntity {
     @Column(name = "reset_password_token", length = 30, nullable = true)
     private String resetPasswordToken;
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

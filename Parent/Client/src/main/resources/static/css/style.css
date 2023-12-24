@@ -320,12 +320,12 @@ ol {
 }
 
 .header__top {
-	background: #111111;
+	background: #f8d7da;
 	padding: 10px 0;
 }
 
 .header__top__left p {
-	color: #ffffff;
+	color: #212529;
 	margin-bottom: 0;
 }
 
@@ -339,7 +339,7 @@ ol {
 }
 
 .header__top__links a {
-	color: #ffffff;
+	color: #212529;
 	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: 2px;
@@ -363,7 +363,7 @@ ol {
 }
 
 .header__top__hover span {
-	color: #ffffff;
+	color: #212529;
 	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: 2px;
@@ -2054,7 +2054,7 @@ ol {
 -----------------------*/
 
 .breadcrumb-option {
-	background: #f3f2ee;
+	background: #ffcaca;
 	padding: 40px 0;
 }
 
